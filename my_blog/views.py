@@ -21,7 +21,7 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         widgets = {
-            'body': forms.Textarea(attrs={'cols': 80, 'rows': 20, 'class':'materialize-textarea'})
+            'body': forms.Textarea(attrs={'cols': 80, 'rows': 20, 'class':'comment-textarea'})
         }
         fields = '__all__'
 
@@ -42,7 +42,7 @@ def create(request):
 
 def read(request, id ):
     article = Article.objects.get(id=id)
-    comments = Comment.ogjects.all().filter(article=id)
+    comments = Comment.objects.all().filter(article=id)
     form = CommentForm()
     context = {'article': article, 'comments': comments, 'form': form }
     return render(request, 'article/read.html', context)

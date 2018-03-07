@@ -1,0 +1,46 @@
+html, body{
+    margin:0px;
+    padding: 0px;
+    background-color: #eceff1;
+    font-size: 16px;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+.article p{
+    font-size: 18px;
+    line-height: 2;
+}
+.comment-textarea{
+    border: 2px solid teal;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    outline:none;
+}
+
+.comment-user{
+    display: inline;
+    font-weight: bolder;
+}
+
+.comment-user > i{
+    font-size: 50px;
+}
+
+.comment-body{
+    display: inline-block;
+    margin-left: 50px;
+    background-color: whitesmoke;
+    border-radius: 30px;
+}
+.comment-body p{
+    padding: 0px 5px;
+}
+.child-comment{
+    margin-top:30px;
+}
+.test{
+    border: 1px solid red;
+}

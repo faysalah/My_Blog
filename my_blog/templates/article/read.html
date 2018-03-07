@@ -1,20 +1,82 @@
-{% extends "layout.html" %}
-{% load static %}
-{% block content %}
+{% extends "layout.html" %} {% load static %} {% block content %}
 <div class="row">
     <div class="col s12">
-        <h3>{{ article.title }}</h3>
-        <p> {{ article.body }}</p>
-        <div class="chip">{{ article.created_at }}</div>
-        <div class="chip">{{ article.category }}</div>
-        <div class="chip">
-            <i class="material-icons">favorite</i> 125
+        <div class="article">
+            <h3>{{ article.title }}</h3>
+            <p> {{ article.body }}</p>
+            <div class="valign-wrapper">
+                <div class="chip">{{ article.created_at }}</div>
+                <div class="chip">{{ article.category }}</div>
+                <div class="chip">
+                    <div class="valign-wrapper">
+                        <i class="material-icons">favorite</i>
+                        <span>125</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col s8">
-        <form>
-            
-        </form>
+</div>
+<!-- COMMENT SECTION -->
+<div class="row">
+    <div class="col s8 offset-s1">
+
+
+
+        <!-- MAIN ADD COMMENT -->
+        <div class="col right">
+            <form action="" method="POST">
+                {{ form.body }}
+                <input type="submit" value="Add Coment" class="btn right">
+            </form>
+        </div>
+
+        <div>
+            <div class="right">
+                <div class="comment-user valign-wrapper">
+                    <i class="material-icons">account_circle</i>
+                    <span> Faysal Ahmmad </span>
+                </div>
+                <div class="comment-body">
+                    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti quos nostrum ipsa ipsam corrupti vel!</p>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class=" col s10 offset-s2">
+                    <div>
+                        <div class="comment-user valign-wrapper">
+                            <i class="material-icons">account_circle</i>
+                            <span> Faysal Ahmmad </span>
+                        </div>
+                        <div class="comment-body">
+                            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti quos nostrum ipsa ipsam corrupti
+                                vel!
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="comment-user valign-wrapper">
+                            <i class="material-icons">account_circle</i>
+                            <span> Abid </span>
+                        </div>
+                        <div class="comment-body">
+                            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti quos nostrum ipsa ipsam corrupti
+                                vel!
+                            </p>
+                        </div>
+                    </div>
+                    <div class="child-comment col s10 right">
+                        <form action="" method="POST">
+                            {{ form.body }}
+                            <input type="submit" value="Replay" class="btn right">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 {% endblock %}
