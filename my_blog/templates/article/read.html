@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col s12">
+        <h3>{{ article.title }}</h3>
+        <p> {{ article.body }}</p>
+        <div class="chip">{{ article.created_at }}</div>
+        <div class="chip">{{ article.category }}</div>
+        <div class="chip">
+            <i class="material-icons">favorite</i> 125
+        </div>
+    </div>
+    <div class="col s8">
+        <form>
+            
+        </form>
+    </div>
+</div>
+{% endblock %}

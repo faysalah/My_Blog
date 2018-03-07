@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if form.erros %}
+<p> There's something wrong with what you enterd!</p>
+{% endif %}
+
+{% if next %}
+<p> Hey, you cant't access that page.</p>
+{% endif %}
+
+<form action="{% url 'login' %}" method="POST" >
+    {% csrf_token %}
+    {{ form }}
+    <p><input type="submit" value="login" class="btn"></p>
+    <input type="hidden" value="{{ next }}">
+</form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Registration Page</h1>
+    <form method="POST" action="{% url 'register' %}" >
+        {% csrf_token %}
+        {% if form.erros %}
+        <p>Thre are errors in the form!</p>
+        {% endif %}
+        {{ form }}
+        <input type="submit" value="Regsiter">
+    </form>
+{% endblock %}

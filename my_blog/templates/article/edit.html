@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="card">
+        <div class="card-content">
+            <form method="post">{% csrf_token %}
+                 {{ form.non_field_errors }}
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ form.title.errors }}
+                        <label for="{{ form.title.id_for_label }}">Article Title</label>
+                        {{ form.title }}
+                    </div>
+                </div>
+    
+                <div class="row">
+                        <div class="input-field col s12">
+                            {{ form.body.errors }}
+                            <label for="{{ form.body.id_for_label }}">Article Body</label>
+                            {{ form.body }}
+                        </div>
+                    </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        {{ form.category.errors }}
+                        {{ form.category}}
+                        <label for="{{ form.category.id_for_label }}">Article Category</label>
+                    </div>
+                </div>
+
+                <input type="submit" class="btn" value="Change Article" />
+            </form>
+        </div>
+    </div>
+{% endblock %}
