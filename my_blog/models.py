@@ -34,3 +34,23 @@ class Comment(models.Model):
         return self.body
     class Meta:
         verbose_name_plural = "Comments"
+
+class CommentReplay(models.Model):
+    body = models.TextField()
+    created_at = models.DateTimeField(default=datetime.now, blank=True)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,default=2) 
+    
+    def __str__(self):
+        return self.body
+    class Meta:
+        verbose_name_plural = "Replies"
+        
+class Favourite(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,default=2) 
+    
+    def __str__(self):
+        return 'favorited'
+    class Meta:
+        verbose_name_plural = "favorites"

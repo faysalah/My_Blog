@@ -25,58 +25,46 @@
 
         <!-- MAIN ADD COMMENT -->
         <div class="col right">
-            <form action="" method="POST">
-                {{ form.body }}
+            <form action="/article/comment/{{ article.id }}/" method="POST">
+                {% csrf_token %} {{ form_comment.body }}
                 <input type="submit" value="Add Coment" class="btn right">
             </form>
         </div>
-
+        {% for comment in comments %}
         <div>
-            <div class="right">
+            <div class="left">
                 <div class="comment-user valign-wrapper">
                     <i class="material-icons">account_circle</i>
                     <span> Faysal Ahmmad </span>
                 </div>
                 <div class="comment-body">
-                    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti quos nostrum ipsa ipsam corrupti vel!</p>
+                    <p> {{comment.body}} </p>
                 </div>
             </div>
-
             <div class="right">
                 <div class=" col s10 offset-s2">
+                    {% for comment in replies|get_item:comment.id %}
                     <div>
                         <div class="comment-user valign-wrapper">
                             <i class="material-icons">account_circle</i>
                             <span> Faysal Ahmmad </span>
                         </div>
                         <div class="comment-body">
-                            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti quos nostrum ipsa ipsam corrupti
-                                vel!
-                            </p>
+                            {{ comment.body }}
                         </div>
                     </div>
-                    <div>
-                        <div class="comment-user valign-wrapper">
-                            <i class="material-icons">account_circle</i>
-                            <span> Abid </span>
-                        </div>
-                        <div class="comment-body">
-                            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti quos nostrum ipsa ipsam corrupti
-                                vel!
-                            </p>
-                        </div>
-                    </div>
+                    {% endfor %}
                     <div class="child-comment col s10 right">
-                        <form action="" method="POST">
-                            {{ form.body }}
+                        <form action="/article/replay/{{ comment.id }}/" method="POST">
+                            {% csrf_token %}
+                            {{ form_replay.body }}
                             <input type="submit" value="Replay" class="btn right">
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
-
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
