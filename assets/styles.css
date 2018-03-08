@@ -13,6 +13,16 @@ html, body{
     font-size: 18px;
     line-height: 2;
 }
+
+.article  button{
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+}
+.fav-pink{
+ color:#f50057 ;
+}
 .comment-textarea{
     border: 2px solid teal;
     border-radius: 10px;

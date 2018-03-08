@@ -50,7 +50,10 @@ def create(request):
 def read(request, id ):
     article = Article.objects.get(id=id)
     comments = Comment.objects.all().filter(article=id)
+    is_favoruite = False
     replies_list = {}
+    if Favourite.objects.filter(article=id,user=request.user.id).exists():
+        is_favoruite = True
     for comment in comments:
         replies = CommentReplay.objects.all().filter(comment=comment.id)
         replies_list[comment.id] = replies
@@ -60,7 +63,8 @@ def read(request, id ):
                 'comments': comments, 
                 'replies': replies_list,
                 'form_comment': form_comment,
-                 'form_replay': form_replay}
+                'form_replay': form_replay,
+                'is_favourite': is_favoruite }
     print(context)
     return render(request, 'article/read.html', context)
 
@@ -97,3 +101,13 @@ def replay_comment(request, id):
             replay.comment = comment
             replay.save()
             return redirect('read', id)
+
+def do_favourite(request, id):
+    if request.method == 'POST':
+        if not Favourite.objects.filter(article=id,user=request.user.id).exists():
+            favourite = Favourite(user=User.objects.get(id=request.user.id),article=Article.objects.get(id=id))
+            favourite.save()
+        else:
+            Favourite.objects.filter(user=request.user.id,article=id).delete()
+    return redirect('read', id)
+

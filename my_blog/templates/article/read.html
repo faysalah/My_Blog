@@ -7,12 +7,25 @@
             <div class="valign-wrapper">
                 <div class="chip">{{ article.created_at }}</div>
                 <div class="chip">{{ article.category }}</div>
-                <div class="chip">
-                    <div class="valign-wrapper">
-                        <i class="material-icons">favorite</i>
-                        <span>125</span>
+                <form action="/article/favourite/{{article.id}}/" method="POST">
+                        <div class="chip">
+                            {% csrf_token %}
+                            <button type="submit">
+                                {% if  is_favourite %}
+                                <div class="valign-wrapper">
+                                    <i class="material-icons">favorite</i>
+                                    <span>125</span>
+                                </div>
+                                {% else %}
+                                <div class="valign-wrapper">
+                                        <i class="material-icons fav-pink">favorite</i>
+                                        <span>125</span>
+                                </div>
+                                {% endif %}
+                            </button>
                     </div>
-                </div>
+                </form>
+                
             </div>
         </div>
     </div>
