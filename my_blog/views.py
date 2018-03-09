@@ -111,3 +111,10 @@ def do_favourite(request, id):
             Favourite.objects.filter(user=request.user.id,article=id).delete()
     return redirect('read', id)
 
+def published(request):
+    articles = Article.objects.all().filter(is_publish=1)
+    return render(request, 'article/index.html',{ 'articles': articles })
+
+def drafts(request):
+    articles = Article.objects.all().filter(is_publish=0)
+    return render(request, 'article/index.html',{ 'articles': articles })
