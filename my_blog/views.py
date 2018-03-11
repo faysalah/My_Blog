@@ -1,41 +1,14 @@
 from django.shortcuts import render, HttpResponse, redirect
-from django import forms
-from .models import Category, Article, Comment, CommentReplay , Favourite
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-# Create your views here.
-class CategoryForm(forms.ModelForm):
-    class Meta:
-        model = Category
-        fields = '__all__'
-        widgets = {
-            'info': forms.Textarea(attrs={'cols': 80, 'rows': 20, 'class':'materialize-textarea'})
-        }
-class AtricleForm(forms.ModelForm):
-    class Meta:
-        model = Article
-        widgets = {
-            'body': forms.Textarea(attrs={'cols': 80, 'rows': 20, 'class':'materialize-textarea'})
-        }
-        fields = '__all__'
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        widgets = {
-            'body': forms.Textarea(attrs={'cols': 80, 'rows': 20, 'class':'comment-textarea'})
-        }
-        fields = ['body']
-class CommentReplayForm(forms.ModelForm):
-    class Meta:
-        model = CommentReplay
-        widgets = {
-            'body': forms.Textarea(attrs={'cols': 80, 'rows': 20, 'class':'comment-textarea'})
-        }
-        fields = ['body']
+from .forms import CategoryForm, AtricleForm, CommentForm, CommentReplay
+from .models import Category, Article, Comment, CommentReplay, Favourite
 
 def index(request):
-    articles = Article.objects.all()
+    articles = Article.objects.all().filter(is_publish=1)
     return render(request, 'article/index.html',{ 'articles': articles })
 
+@login_required(login_url='/accounts/login/')
 def create(request):
     categories = Category.objects.all()
     if request.method == 'POST':
@@ -47,6 +20,7 @@ def create(request):
          form = AtricleForm()
     return render(request,'article/create.html',{'form':form ,'category': categories })
 
+@login_required(login_url='/accounts/login/')
 def read(request, id ):
     article = Article.objects.get(id=id)
     comments = Comment.objects.all().filter(article=id)
@@ -68,6 +42,7 @@ def read(request, id ):
     print(context)
     return render(request, 'article/read.html', context)
 
+@login_required(login_url='/accounts/login/')
 def edit(request, id ):
     article = Article.objects.get(id=id)
     if request.method == "POST":
@@ -80,6 +55,7 @@ def edit(request, id ):
         context = {'form': form }
         return render(request, 'article/edit.html', context)
 
+@login_required(login_url='/accounts/login/')
 def add_comment(request, id):
     article = Article.objects.get(id=id) 
     if request.method == 'POST':
@@ -91,6 +67,7 @@ def add_comment(request, id):
             comment.save()
             return redirect('read', id)
 
+@login_required(login_url='/accounts/login/')
 def replay_comment(request, id):
     comment = Comment.objects.get(id=id) 
     if request.method == 'POST':
@@ -102,6 +79,7 @@ def replay_comment(request, id):
             replay.save()
             return redirect('read', id)
 
+@login_required(login_url='/accounts/login/')
 def do_favourite(request, id):
     if request.method == 'POST':
         if not Favourite.objects.filter(article=id,user=request.user.id).exists():
@@ -111,10 +89,12 @@ def do_favourite(request, id):
             Favourite.objects.filter(user=request.user.id,article=id).delete()
     return redirect('read', id)
 
+@login_required(login_url='/accounts/login/')
 def published(request):
-    articles = Article.objects.all().filter(is_publish=1)
+    articles = Article.objects.all().filter(is_publish=1,author=request.user.id)
     return render(request, 'article/index.html',{ 'articles': articles })
-
+    
+@login_required(login_url='/accounts/login/')
 def drafts(request):
-    articles = Article.objects.all().filter(is_publish=0)
+    articles = Article.objects.all().filter(is_publish=0,author=request.user.id)
     return render(request, 'article/index.html',{ 'articles': articles })

@@ -3,10 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 # Create your views here.
-@login_required(login_url='/accounts/login/')
-@user_passes_test(lambda u:u.is_superuser, login_url='/accounts/login/')
+# @login_required(login_url='/accounts/login/')
+# @user_passes_test(lambda u:u.is_superuser, login_url='/accounts/login/')
 def index(request):
-    return render(request, 'user_example/index.html')
+    return redirect('/article')
 
 def register(request):
     if request.method == 'POST':
