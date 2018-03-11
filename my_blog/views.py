@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import CategoryForm, AtricleForm, CommentForm, CommentReplay
+from .forms import CategoryForm, AtricleForm, CommentForm, CommentReplayForm
 from .models import Category, Article, Comment, CommentReplay, Favourite
 
 def index(request):

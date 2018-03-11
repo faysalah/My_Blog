@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, logout
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 # Create your views here.
 # @login_required(login_url='/accounts/login/')
