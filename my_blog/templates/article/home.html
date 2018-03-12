@@ -1,0 +1,37 @@
+{% extends "layout.html" %} {% block content %}
+<div class="category-filter center">
+
+  <ul>
+    {% for category in categories %}
+    <li>
+      <a href="/article/category/{{ category.id }}/" class="tooltipped waves-effect waves-light btn" data-position="top" data-delay="50"
+        data-tooltip="{{ category.info }}">{{ category.name}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="row">
+  {% for article in articles %}
+  <div class="card col">
+    <div class="card-content">
+      <span class="card-title">{{ article.title }}</span>
+      <p> {{ article.body }}</p>
+    </div>
+    <div class="card-action">
+
+        <div class="chip">{{ article.created_at }}</div>
+        <div class="chip">{{ article.category }}</div>
+        <div class="chip">{{ article.author }}</div>
+        
+        <div class="chip"> <img src="/static/favourite.svg"  alt="favourite"> 125  </div>
+
+     
+        <a href="/article/read/{{ article.id }}" class="btn right">Read Full</a>
+
+      
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

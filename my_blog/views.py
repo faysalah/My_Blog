@@ -5,8 +5,13 @@ from .forms import CategoryForm, AtricleForm, CommentForm, CommentReplayForm
 from .models import Category, Article, Comment, CommentReplay, Favourite
 
 def index(request):
+    categories = Category.objects.all()
     articles = Article.objects.all().filter(is_publish=1)
-    return render(request, 'article/index.html',{ 'articles': articles })
+    context = {
+        'articles': articles ,
+        'categories': categories 
+    }
+    return render(request, 'article/home.html', context)
 
 @login_required(login_url='/accounts/login/')
 def create(request):
@@ -18,7 +23,12 @@ def create(request):
             return redirect('/article')
     else:
          form = AtricleForm()
-    return render(request,'article/create.html',{'form':form ,'category': categories })
+         context= {
+             'form':form ,
+             'category': categories ,
+             'title': 'New Article'
+         }
+    return render(request,'article/create.html', context)
 
 @login_required(login_url='/accounts/login/')
 def read(request, id ):
@@ -52,7 +62,9 @@ def edit(request, id ):
             return redirect('/article')
     else:
         form = AtricleForm(instance=article)
-        context = {'form': form }
+        context = {
+            'form': form,
+            'title': 'Update Article' }
         return render(request, 'article/edit.html', context)
 
 @login_required(login_url='/accounts/login/')
@@ -92,9 +104,26 @@ def do_favourite(request, id):
 @login_required(login_url='/accounts/login/')
 def published(request):
     articles = Article.objects.all().filter(is_publish=1,author=request.user.id)
-    return render(request, 'article/index.html',{ 'articles': articles })
+    context = {
+        'articles': articles,
+        'title': 'Published Articles'
+    }
+    return render(request, 'article/index.html', context )
     
 @login_required(login_url='/accounts/login/')
 def drafts(request):
     articles = Article.objects.all().filter(is_publish=0,author=request.user.id)
-    return render(request, 'article/index.html',{ 'articles': articles })
+    context = {
+        'articles': articles,
+        'title': 'Dafrt Articles'
+    }
+    return render(request, 'article/index.html',context)
+
+def category_filter(request, id):
+    categories = Category.objects.all()
+    articles = Article.objects.all().filter(is_publish=1,category=id)
+    context = {
+        'articles': articles ,
+        'categories': categories 
+    }
+    return render(request, 'article/home.html', context)

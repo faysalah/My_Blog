@@ -35,9 +35,6 @@ html, body{
     font-weight: bolder;
 }
 
-.comment-user > i{
-    font-size: 50px;
-}
 
 .comment-body{
     display: inline-block;
@@ -54,3 +51,8 @@ html, body{
 .test{
     border: 1px solid red;
 }
+
+.category-filter ul > li{
+    display: inline-block;
+}
+ 
