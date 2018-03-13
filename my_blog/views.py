@@ -30,7 +30,6 @@ def create(request):
          }
     return render(request,'article/create.html', context)
 
-@login_required(login_url='/accounts/login/')
 def read(request, id ):
     article = Article.objects.get(id=id)
     comments = Comment.objects.all().filter(article=id)
@@ -49,7 +48,6 @@ def read(request, id ):
                 'form_comment': form_comment,
                 'form_replay': form_replay,
                 'is_favourite': is_favoruite }
-    print(context)
     return render(request, 'article/read.html', context)
 
 @login_required(login_url='/accounts/login/')
