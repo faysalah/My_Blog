@@ -34,9 +34,12 @@ def read(request, id ):
     article = Article.objects.get(id=id)
     comments = Comment.objects.all().filter(article=id)
     is_favoruite = False
+    is_bookmarked = False
     replies_list = {}
     if Favourite.objects.filter(article=id,user=request.user.id).exists():
         is_favoruite = True
+    if Bookmark.objects.filter(article=id,user=request.user.id).exists():
+        is_bookmarked = True
     for comment in comments:
         replies = CommentReplay.objects.all().filter(comment=comment.id)
         replies_list[comment.id] = replies
@@ -47,7 +50,8 @@ def read(request, id ):
                 'replies': replies_list,
                 'form_comment': form_comment,
                 'form_replay': form_replay,
-                'is_favourite': is_favoruite }
+                'is_favourite': is_favoruite,
+                'is_bookmarked' :is_bookmarked }
     return render(request, 'article/read.html', context)
 
 @login_required(login_url='/accounts/login/')
@@ -92,11 +96,16 @@ def replay_comment(request, id):
 @login_required(login_url='/accounts/login/')
 def do_favourite(request, id):
     if request.method == 'POST':
+        article = Article.objects.get(id=id)
         if not Favourite.objects.filter(article=id,user=request.user.id).exists():
             favourite = Favourite(user=User.objects.get(id=request.user.id),article=Article.objects.get(id=id))
             favourite.save()
+            article.favourite_count += 1
+            article.save()
         else:
             Favourite.objects.filter(user=request.user.id,article=id).delete()
+            article.favourite_count -= 1
+            article.save()
     return redirect('read', id)
 
 @login_required(login_url='/accounts/login/')
@@ -129,9 +138,18 @@ def category_filter(request, id):
 @login_required(login_url='/accounts/login/')
 def do_bookmark(request, id):
     if request.method == 'POST':
+
         if not Bookmark.objects.filter(article=id,user=request.user.id).exists():
             bookmark = Bookmark(user=User.objects.get(id=request.user.id),article=Article.objects.get(id=id))
             bookmark.save()
+            
         else:
             Bookmark.objects.filter(user=request.user.id,article=id).delete()
+            
     return redirect('read', id)
+
+@login_required(login_url='/accounts/login/')
+def bookmarked(request):
+    context = {
+    }
+    return render(request, 'article/index.html', context)

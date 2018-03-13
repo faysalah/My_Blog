@@ -16,6 +16,7 @@ class Article(models.Model):
     body = models.TextField()
     created_at = models.DateTimeField(default=datetime.now, blank=True)
     is_publish = models.BooleanField(default=0)
+    is_bookmarked = models.BooleanField(default=0)
     favourite_count = models.PositiveIntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,default=2)
