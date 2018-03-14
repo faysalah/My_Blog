@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import CategoryForm, AtricleForm, CommentForm, CommentReplayForm
-from .models import Category, Article, Comment, CommentReplay, Favourite
+from .models import Category, Article, Comment, CommentReplay, Favourite, Bookmark
 
 def index(request):
     categories = Category.objects.all()
@@ -113,7 +113,7 @@ def drafts(request):
     articles = Article.objects.all().filter(is_publish=0,author=request.user.id)
     context = {
         'articles': articles,
-        'title': 'Dafrt Articles'
+        'title': 'Draft Articles'
     }
     return render(request, 'article/index.html',context)
 
@@ -125,3 +125,13 @@ def category_filter(request, id):
         'categories': categories 
     }
     return render(request, 'article/home.html', context)
+
+@login_required(login_url='/accounts/login/')
+def do_bookmark(request, id):
+    if request.method == 'POST':
+        if not Bookmark.objects.filter(article=id,user=request.user.id).exists():
+            bookmark = Bookmark(user=User.objects.get(id=request.user.id),article=Article.objects.get(id=id))
+            bookmark.save()
+        else:
+            Bookmark.objects.filter(user=request.user.id,article=id).delete()
+    return redirect('read', id)

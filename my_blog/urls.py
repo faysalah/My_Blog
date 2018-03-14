@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import index, create, edit, read, published, drafts, add_comment, replay_comment, do_favourite, category_filter
+from .views import index, create, edit, read, published, drafts, add_comment, replay_comment, do_favourite, category_filter, do_favourite
 
 urlpatterns = [
     path('', index),
@@ -12,5 +12,6 @@ urlpatterns = [
     path('favourite/<int:id>/', do_favourite),
     path('published', published),
     path('drafts', drafts),
-    path('category/<int:id>/', category_filter)
+    path('category/<int:id>/', category_filter),
+    path('bookmark', do_favourite)
 ]

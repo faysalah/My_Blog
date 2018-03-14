@@ -6,24 +6,39 @@
             <p> {{ article.body }}</p>
             <div class="valign-wrapper">
                 <div class="chip">{{ article.created_at }}</div>
-                <div class="chip">{{ article.category }}</div>
+                <div class="chip">{{ article.category }}</div>&nbsp;&nbsp;&nbsp;&nbsp;
                 <form action="/article/favourite/{{article.id}}/" method="POST">
-                        <div class="chip">
                             {% csrf_token %}
                             <button type="submit">
                                 {% if  is_favourite %}
                                 <div class="valign-wrapper">
                                     <i class="material-icons">favorite</i>
-                                    <span>125</span>
+                                    <span>{{ article.favourite_count }}</span>
+                                </div>
+                                {% else %}
+
+                                <div class="valign-wrapper">
+                                        <i class="material-icons fav-pink">favorite</i>
+                                        <span> {{ article.favourite_count }}</span>
+                                </div>
+
+                                {% endif %}
+                            </button>
+                </form>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <form action="/article/bookmark/{{article.id}}/" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">
+                                {% if  is_favourite %}
+                                <div class="valign-wrapper">
+                                    <i class="material-icons">bookmark_border</i>
                                 </div>
                                 {% else %}
                                 <div class="valign-wrapper">
-                                        <i class="material-icons fav-pink">favorite</i>
-                                        <span>125</span>
+                                        <i class="material-icons fav-pink">bookmark</i>
                                 </div>
                                 {% endif %}
                             </button>
-                    </div>
                 </form>
             </div>
             {% if user.is_authenticated and user.id == article.author.id %}
