@@ -1,15 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="title pink z-depth-3 center"> <h3> {{ title }}</h3> </div>
-<div class="row">
-  <div class="col s12">
-      <div class="collection">
-<!-- {% for article in articles %}
-          <a href="/article/read/{{ article.id }}/" class="collection-item">{{ article.title }} <span class="right"> {{article.created_at}} </span> </a>         
-{% endfor %} -->
-      </div>
-  </div>
-</div>
-      
-
+<div class="title pink z-depth-3 center"> <h3> {{ title }}</h3> </div> 
+{% for article in articles %}
+<ul class="collapsible">
+  <li>
+    <div class="collapsible-header">
+        <i class="material-icons">chrome_reader_mode</i>
+    <a href="/article/read/{{ article.id }}">  {{ article.title| title }}</a>
+    </div>
+  </li>
+</ul>
+{% endfor %}
 {% endblock %}

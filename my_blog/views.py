@@ -150,6 +150,11 @@ def do_bookmark(request, id):
 
 @login_required(login_url='/accounts/login/')
 def bookmarked(request):
+    articles = set()
+    for e in Bookmark.objects.filter(user=2).select_related('article'):
+        articles.add(e.article)
     context = {
+        'articles': articles,
+        'title': 'Bookmarked Articles'
     }
-    return render(request, 'article/index.html', context)
+    return render(request, 'article/bookmarks.html', context)

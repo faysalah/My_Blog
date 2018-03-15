@@ -37,7 +37,8 @@
                         <a href="/article/create">Create</a>
                     </li>
                     <li>
-                        <a href="/logout">Logout({{ user.username }})</a>
+                        <a href="/logout">Logout [{{ user.username }}]</span>
+                        </a>
                     </li>
                 </ul>
                 {% else %}
@@ -49,7 +50,7 @@
                         <a href="/accounts/login">Login</a>
                     </li>
                     <li>
-                        <a href="/accounts/register">Register</a>
+                        <a href="/register">Register</a>
                     </li>
                 </ul>
                 {% endif %}
@@ -73,6 +74,7 @@
         $(document).ready(function () {
             $('.tooltipped').tooltip({ delay: 50 });
         });
+
     </script>
 
 </body>

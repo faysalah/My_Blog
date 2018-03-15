@@ -1,12 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Registration Page</h1>
+    <h3 class="z-depth-3 center">Registration </h3>
     <form method="POST" action="{% url 'register' %}" >
         {% csrf_token %}
         {% if form.erros %}
         <p>Thre are errors in the form!</p>
         {% endif %}
         {{ form }}
-        <input type="submit" value="Regsiter">
+        <br>
+        <input type="submit" class="btn" value="Regsiter">
     </form>
 {% endblock %}
