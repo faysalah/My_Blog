@@ -21,7 +21,10 @@
     <div class="card-action">
         <div class="chip">{{ article.created_at }}</div>
         <div class="chip">{{ article.category }}</div>
-        <div class="chip">{{ article.author.username }}</div>
+        <div class="chip"> {{ article.author.username }}</div>
+        <div class="chip">
+            <i class="material-icons valign-icon">favorite</i> {{ article.favourite_count }}  
+        </div>
         <a href="/article/read/{{ article.id }}" class="btn right">Read Full</a>
     </div>
   </div>

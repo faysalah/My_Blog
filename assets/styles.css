@@ -48,11 +48,40 @@ html, body{
 .child-comment{
     margin-top:30px;
 }
-.test{
-    border: 1px solid red;
-}
+
 
 .category-filter ul > li{
     display: inline-block;
 }
  
+
+
+/* .align-text > i {
+    display: block;
+}
+
+.align-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+.valign-icon {
+    vertical-align: middle;
+    font-size: calc(100% + 7px) ;
+}
+.btn{
+    margin-bottom: 5px;
+}
+/* .align-text > i,
+.align-text > p {
+    display: inline;
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+} */
+
+/* .align-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
